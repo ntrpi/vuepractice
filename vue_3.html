@@ -12,12 +12,21 @@
 	<body>
 	
 	<div id="app">
-		<span v-if="profile">
-			Profile of {{profile.fname}} {{profile.lname}} 
-		</span>
-		<span v-else>
+		<div v-if="profile">
+			<img class="special" 
+				:src="profile.image.src ? profile.image.src : defaultProfile.image.src" 
+				:alt="profile.image.alt ? profile.image.alt : defaultProfile.image.alt" 
+				width="300px">
+			<div class="container">
+				<h4 v-if="profile.fname" class="important">{{profile.fname}} {{profile.lname}}</h4>
+				<h4 v-else="profile.fname" class="important">{{defaultProfile.fname}}</h4>
+				<p v-if="profile.bio">{{profile.bio}}</p>
+				<p v-else="profile.bio">{{defaultProfile.bio}}</p>
+			</div>
+		</div>
+		<div v-else>
 			No Profile Data found.
-		</span>
+		</div>
 	</div>
 	
 	<script>
@@ -25,14 +34,24 @@
 		el: '#app',
 		
 		data:{
-			/*
-			profile:{
-				fname: "John",
-				lname: "Doe"	
+			profile: {
+				fname: "Sandra",
+				lname: "Kupfer",
+				bio: "Software Developer",
+				image: {
+					src: 'https://skds.site/img/headshots/HeadShot1.png',
+					alt: 'Headshot of Sandra Kupfer.'
+				}
+			},
+			defaultProfile: {
+				fname: "Name",
+				bio: "Bio",
+				image: {
+					src: 'https://icons-for-free.com/iconfiles/png/512/person+user+icon-1320166085409390336.png',
+					alt: 'Icon of Person.'
+				}
 			}
-			*/
 		}
-		
 	});
 	</script>
 	
