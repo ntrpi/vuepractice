@@ -1,16 +1,21 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-	
-		<title>J1 Practice</title>
-		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-		<style>
-			.formfield{margin-bottom:10px;}
-		</style>
-	</head>
-	<body>
-	<p>Dog Treats Problem. <a href="https://cemc.uwaterloo.ca/contests/computing/2020/index.html">from the J1 problem hosted by the CCC.</a></p>
+
+<head>
+
+	<title>J1 Practice</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+		.formfield {
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+
+<body>
 	<div id="app">
+		<!-- <p>Dog Treats Problem. <a href="https://cemc.uwaterloo.ca/contests/computing/2020/index.html">from the J1 problem
+			hosted by the CCC.</a></p>
 		<div class="formfield">
 			<label>Small Treats: <label> <input v-model="treat_qty_small">
 		</div>
@@ -27,34 +32,69 @@
 			<span v-if="is_happy">{{dog_name}} is Happy!</span>
 			<span v-else>{{dog_name}} is sad..</span>
 		</div>
+
+		<div style="height: 100px;"></div> -->
+
+		<div>
+			<h2><a href="https://www.cemc.uwaterloo.ca/contests/computing/2021/ccc/juniorEF.pdf">Boiling Water Problem</a></h2>
+			<h3>Problem Description</h3>
+			<p>At sea level, atmospheric pressure is 100 kPa and water begins to boil at 100◦C. As you go
+				above sea level, atmospheric pressure decreases, and water boils at lower temperatures. As
+				you go below sea level, atmospheric pressure increases, and water boils at higher temperatures. A formula relating atmospheric pressure to the temperature at which water begins to
+				boil is</p>
+			<p>P = 5 × B − 400</p>
+			<p>where P is atmospheric pressure measured in kPa, and B is the temperature at which water
+				begins to boil measured in ◦C.</p>
+			<p>Given the temperature at which water begins to boil, determine atmospheric pressure. Also
+				determine if you are below sea level, at sea level, or above sea level.</p>
+			<h3>Solution</h3>
+			<div class="formfield">
+				<label for="waterTemp">Water temp</label>
+				<input name="waterTemp" type="number" min="80" max="200" v-model="water_temp">
+			</div>
+			<div>
+				Atmospheric pressure: {{ atmo_pressure }} kPa
+			</div>
+			<div>
+				You are {{ rel_sea_level }} sea level.
+			</div>
+		</div>
 	</div>
-	
+
 	<script>
-	var app = new Vue({
-		el: '#app',
-		data:{
-			treat_diagnostics:false,
-			dog_name:"Barley",
-			treat_qty_small:0,
-			treat_qty_medium:0,
-			treat_qty_large:0,
-			treat_value_small:1,
-			treat_value_medium:2,
-			treat_value_large:3
-		},
-		computed:{
-			treat_total:function(){
-				return (this.treat_qty_small * this.treat_value_small) + 
-				(this.treat_qty_medium * this.treat_value_medium) + 
-				(this.treat_qty_large * this.treat_value_large);	
+		var app = new Vue( {
+			el: '#app',
+			data: {
+				treat_diagnostics: false,
+				dog_name: "Barley",
+				treat_qty_small: 0,
+				treat_qty_medium: 0,
+				treat_qty_large: 0,
+				treat_value_small: 1,
+				treat_value_medium: 2,
+				treat_value_large: 3,
+
+				water_temp: 100
 			},
-			is_happy:function(){
-				
-				return this.treat_total>=10;	
+			computed: {
+				treat_total: function() {
+					return ( this.treat_qty_small * this.treat_value_small ) +
+						( this.treat_qty_medium * this.treat_value_medium ) +
+						( this.treat_qty_large * this.treat_value_large );
+				},
+				is_happy: function() {
+					return this.treat_total >= 10;
+				},
+				atmo_pressure: function() {
+					return this.water_temp * 5 - 400;
+				},
+				rel_sea_level: function() {
+					var pressure = this.atmo_pressure;
+					return pressure > 100 ? "above" : pressure < 100 ? "below" : "at";
+				}
 			}
-		}
-	});
-	
+		} );
+
 	</script>
 	<!--
 		v-model will allow you to quickly bind form elements to the data property.
@@ -68,5 +108,6 @@
 		- Build using v-model and computed properties!
 	
 	-->
-	</body>
+</body>
+
 </html>

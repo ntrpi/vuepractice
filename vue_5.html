@@ -1,42 +1,71 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<title>v-on Event Handlers</title>
-		<meta charset="UTF-8">
-		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-		<style>
-			.box{width:200px; height:200px; background:green; border:2px solid black; text-align:center; line-height:200px; color:white;}
-			.hidden{display:none;}
-		</style>
-	</head>
-	<body>
-	
+
+<head>
+	<title>v-on Event Handlers</title>
+	<meta charset="UTF-8">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+		.box {
+			width: 200px;
+			height: 200px;
+			background: green;
+			border: 2px solid black;
+			text-align: center;
+			line-height: 200px;
+			color: white;
+		}
+
+		.hidden {
+			display: none;
+		}
+
+		.red-box {
+			width: 100px;
+			height: 100px;
+			background: red;
+		}
+	</style>
+</head>
+
+<body>
+
 	<div id="app">
 		<div v-bind:class="{box:true, hidden:boxHidden}">{{message}}</div>
-		<button v-on:click="showhide();">Click</button>
+		<button v-on:click="showhide();">{{buttonText}}</button></br>
+		<div class="red-box" v-on:mouseover="onMouseOver()" v-bind:style="{height: redBoxHeight + 'px'}"></div>
 	</div>
-	
+
 	<script>
-	var app = new Vue({
-		el: '#app',
-		
-		data:{
-			boxHeight:200,
-			boxHidden : false,
-			message  : 'Make me disappear!'
-		},
-		methods:{
-			showhide : function(){
-				console.log(this.boxHidden);
-				if(this.boxHidden){
-					this.boxHidden=false;
-				}else{
-					this.boxHidden=true;	
+		var app = new Vue( {
+			el: '#app',
+
+			data: {
+				boxHeight: 200,
+				boxHidden: false,
+				message: 'Make me disappear!',
+				buttonText: "Hide",
+				redBoxHeight: 100
+			},
+			methods: {
+				showhide: function() {
+					console.log( this.boxHidden );
+					if( this.boxHidden )
+					{
+						this.boxHidden = false;
+						this.buttonText = "Hide"
+					} else
+					{
+						this.boxHidden = true;
+						this.buttonText = "Show"
+					}
+				},
+				onMouseOver: function() {
+					this.redBoxHeight += 10;
 				}
 			}
-		}
-		
-	});
+
+		} );
 	</script>
 	<!--
 		Step 1: Read the code above

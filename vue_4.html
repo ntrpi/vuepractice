@@ -6,7 +6,9 @@
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 		<style>
 			ul {list-style-type:none;}
-			ul li{marign-bottom:20px;}
+			ul li{margin-bottom:20px;}
+			.red-dialog { color: red; }
+			.blue-dialog { color: blue; }
 		</style>
 	</head>
 	<body>
@@ -15,9 +17,11 @@
 		<ul>
 			<li v-for="part in scene">
 				<span>{{part.character}}</span>
-				<p>{{part.dialogue}}</p>
+				<!-- I couldn't find any examples of changing the class with v-if. -->
+				<p v-bind:class="{ 'red-dialog': part.character == 'MACBETH', 'blue-dialog': part.character == 'LADY MACBETH' }" v-html="getClass(part.dialogue)"></p>
 			</li>
 		</ul>
+
 	</div>
 	
 	<script>
@@ -33,13 +37,13 @@
 				{character:'LADY MACBETH', dialogue:"Was the hope drunk\nWherein you dress'd yourself? hath it slept since?\nAnd wakes it now, to look so green and pale\nAt what it did so freely? From this time\nSuch I account thy love. Art thou afeard\nTo be the same in thine own act and valour\nAs thou art in desire? Wouldst thou have that\nWhich thou esteem'st the ornament of life,\nAnd live a coward in thine own esteem,\nLetting 'I dare not' wait upon 'I would,'\nLike the poor cat i' the adage?"}	
 			]
 			//Next line
-			//MACBETH
-
-		    //Prithee, peace:
-		    //I dare do all that may become a man;
-		    //Who dares do more is none.
+			// { "character": "MACBETH", "dialogue": "Prithee, peace:\nI dare do all that may become a man;\nWho dares do more is none." }
+		},
+		methods:{
+			getClass( dialogue ) {
+				return dialogue.replaceAll( '\n', '<br>' );
+			}
 		}
-		
 	});
 	</script>
 	
